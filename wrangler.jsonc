@@ -1,0 +1,6 @@
+{
+  // Cloudflare Workers con static assets (para cuando tenga dominio propio). Lo despliega Elías (npx wrangler deploy), no el agente.
+  "name": "pitucos-marrones",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./out" }
+}

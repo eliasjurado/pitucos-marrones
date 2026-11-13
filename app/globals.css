@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+/* Pitumerch · identidad tomada del merch de Pitucos Marrones (no la de Elías Jurado).
+   Chocolate de la visera · crema de las gorras · mostaza del ¡Nada! · negro · guinda de la camiseta. */
+:root {
+  --chocolate: #3f2a1d;
+  --crema: #f3ead8;
+  --papel: #fbf6eb;
+  --mostaza: #e2a622;
+  --mostaza-hondo: #c98f12;
+  --negro: #17120f;
+  --guinda: #7b2230;
+  --tinta: #17120f;
+  --tinta-suave: #5a4636; /* 6.7:1 sobre crema */
+  --marca: #3f2a1d;
+  --linea: rgb(23 18 15 / 0.16);
+  --borde-control: #7d6a5a;
+  interpolate-size: allow-keywords;
+}
+
+@theme inline {
+  --color-marca: var(--marca);
+  --color-chocolate: var(--chocolate);
+  --color-crema: var(--crema);
+  --color-papel: var(--papel);
+  --color-mostaza: var(--mostaza);
+  --color-negro: var(--negro);
+  --color-guinda: var(--guinda);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-linea: var(--linea);
+  --font-titulo: var(--font-fredoka), system-ui, sans-serif;
+  --font-texto: var(--font-figtree), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--font-texto);
+  line-height: 1.5;
+  /* espacio para la barra fija del pedido en móvil */
+  padding-bottom: 5.5rem;
+}
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+.sobre-oscuro :focus-visible {
+  outline-color: var(--mostaza);
+}
+
+.titulo {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  background: var(--mostaza);
+  color: var(--tinta);
+  border: 2px solid var(--tinta);
+  transition: background-color 150ms, transform 150ms;
+}
+.btn:hover {
+  background: var(--mostaza-hondo);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  background: #ddd2bd;
+  border-color: #8a7a68;
+  color: #54463a;
+  cursor: not-allowed;
+}
+
+.btn-borde {
+  background: transparent;
+  color: var(--tinta);
+  border: 2px solid var(--tinta);
+}
+.btn-borde:hover {
+  background: var(--tinta);
+  color: var(--crema);
+}
+
+/* Campos */
+.campo {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 0.875rem;
+  border: 1px solid var(--borde-control);
+  border-radius: 0.5rem;
+  background: var(--papel);
+  color: var(--tinta);
+  font-size: 1rem; /* 16px: iOS no hace zoom al enfocar */
+}
+
+/* Talla */
+.talla {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 2px solid var(--tinta);
+  border-radius: 0.5rem;
+  background: var(--papel);
+  font-weight: 700;
+  transition: background-color 150ms, color 150ms;
+}
+.talla:hover {
+  background: var(--crema);
+}
+.talla[aria-pressed="true"] {
+  background: var(--chocolate);
+  color: var(--crema);
+}
+
+/* Logotipo PITU / MERCH: letra gruesa y redondeada, relleno crema y contorno oscuro */
+.logotipo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  line-height: 0.82;
+  text-align: center;
+  color: var(--crema);
+  -webkit-text-stroke: 0.2em var(--negro);
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+  letter-spacing: 0.01em;
+}
+.logotipo-pitu {
+  font-size: 1em;
+}
+.logotipo-merch {
+  font-size: 0.78em;
+}
+
+/* Hoja del pedido (móvil): sube desde abajo */
+.hoja-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgb(23 18 15 / 0.6);
+}
+.hoja {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  max-height: 92dvh;
+  overflow-y: auto;
+  border-radius: 1rem 1rem 0 0;
+  background: var(--crema);
+  border-top: 2px solid var(--tinta);
+  padding: 1.25rem 1rem 1.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hoja[data-state="open"] {
+    animation: subir 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hoja[data-state="closed"] {
+    animation: bajar 180ms ease-in forwards;
+  }
+  .hoja-fondo[data-state="open"] {
+    animation: aparecer 200ms ease-out;
+  }
+  .hoja-fondo[data-state="closed"] {
+    animation: desaparecer 180ms ease-in forwards;
+  }
+}
+@keyframes subir {
+  from { transform: translateY(100%); }
+}
+@keyframes bajar {
+  to { transform: translateY(100%); }
+}
+@keyframes aparecer {
+  from { opacity: 0; }
+}
+@keyframes desaparecer {
+  to { opacity: 0; }
+}
+
+/* Motion estándar: CSS nativo, mejora progresiva, respeta reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .revelar {
+      animation: revelar linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    @keyframes revelar {
+      from {
+        opacity: 0;
+        translate: 0 1.25rem;
+      }
+    }
+  }
+  .tarjeta-nueva {
+    transition: opacity 300ms, translate 300ms;
+    @starting-style {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+}
+
+/* FAQ con <details> animado */
+details.faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 250ms ease, content-visibility 250ms allow-discrete;
+}
+details.faq[open]::details-content {
+  block-size: auto;
+}
+details.faq summary {
+  list-style: none;
+}
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+details.faq .mas {
+  transition: rotate 200ms;
+}
+details.faq[open] .mas {
+  rotate: 45deg;
+}
+@media (prefers-reduced-motion: reduce) {
+  details.faq::details-content,
+  details.faq .mas {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

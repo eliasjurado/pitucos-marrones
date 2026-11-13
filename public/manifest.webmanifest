@@ -1,0 +1,16 @@
+{
+  "name": "Pitumerch",
+  "short_name": "Pitumerch",
+  "description": "Merch oficial de Pitucos Marrones. Arma tu pedido y envíalo por WhatsApp.",
+  "lang": "es-PE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F3EAD8",
+  "theme_color": "#3F2A1D",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
