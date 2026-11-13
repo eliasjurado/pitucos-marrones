@@ -85,7 +85,7 @@ export function PanelPedido() {
           aria-describedby={ver("nombre") ? `${uid}-e-nombre` : undefined}
           onChange={(e) => setForm({ nombre: e.target.value })}
         />
-        {ver("nombre") && <p id={`${uid}-e-nombre`} className="mt-1 text-sm font-bold text-marca">{ver("nombre")}</p>}
+        {ver("nombre") && <p id={`${uid}-e-nombre`} className="mt-1 text-sm font-bold text-guinda">{ver("nombre")}</p>}
       </div>
 
       <fieldset aria-describedby={ver("modalidad") ? `${uid}-e-modo` : undefined}>
@@ -106,7 +106,7 @@ export function PanelPedido() {
             </label>
           ))}
         </div>
-        {ver("modalidad") && <p id={`${uid}-e-modo`} className="mt-1 text-sm font-bold text-marca">{ver("modalidad")}</p>}
+        {ver("modalidad") && <p id={`${uid}-e-modo`} className="mt-1 text-sm font-bold text-guinda">{ver("modalidad")}</p>}
       </fieldset>
 
       {form.modalidad && (
@@ -122,7 +122,7 @@ export function PanelPedido() {
             aria-describedby={ver("lugar") ? `${uid}-e-lugar` : undefined}
             onChange={(e) => setForm({ lugar: e.target.value })}
           />
-          {ver("lugar") && <p id={`${uid}-e-lugar`} className="mt-1 text-sm font-bold text-marca">{ver("lugar")}</p>}
+          {ver("lugar") && <p id={`${uid}-e-lugar`} className="mt-1 text-sm font-bold text-guinda">{ver("lugar")}</p>}
         </div>
       )}
 

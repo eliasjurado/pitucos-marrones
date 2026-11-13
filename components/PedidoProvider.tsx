@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { lineaId, productoPorId } from "@/content/catalogo";
+import { conTransicion } from "@/lib/transicion";
 import type { Modalidad, Pedido } from "@/lib/pedido.mjs";
 
 type Form = { nombre: string; modalidad: Modalidad | ""; lugar: string };
@@ -43,7 +44,8 @@ const valida = (k: string) => {
 export function PedidoProvider({ children }: { children: React.ReactNode }) {
   const [lineas, setLineas] = useState<Record<string, number>>({});
   const [form, setFormState] = useState<Form>(FORM0);
-  const [abierto, setAbierto] = useState(false);
+  const [abierto, setAbiertoRaw] = useState(false);
+  const setAbierto = useCallback((v: boolean) => conTransicion(() => setAbiertoRaw(v)), []);
   const [enviado, setEnviado] = useState(false);
   const [cargado, setCargado] = useState(false);
 
@@ -116,7 +118,7 @@ export function PedidoProvider({ children }: { children: React.ReactNode }) {
       setEnviado,
       vaciar,
     };
-  }, [lineas, agregar, form, setForm, abierto, enviado, vaciar]);
+  }, [lineas, agregar, form, setForm, abierto, setAbierto, enviado, vaciar]);
 
   return <PedidoCtx.Provider value={value}>{children}</PedidoCtx.Provider>;
 }

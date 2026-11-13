@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: false, follow: false },
   manifest: ruta("/manifest.webmanifest"),
-  icons: { apple: ruta("/icons/icon-192.png") },
+  icons: { icon: ruta("/icon.png"), apple: ruta("/icons/icon-192.png") },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#433938" };

@@ -10,11 +10,16 @@ export function BarraPedido() {
   const { totalItems, abierto, setAbierto } = usePedido();
   return (
     <Dialog.Root open={abierto} onOpenChange={setAbierto}>
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-tinta bg-crema p-3 lg:hidden">
-        <Dialog.Trigger className="btn w-full" disabled={totalItems === 0}>
-          {totalItems === 0 ? "Tu pedido está vacío" : `Ver pedido (${totalItems})`}
-        </Dialog.Trigger>
-      </div>
+      {totalItems > 0 && (
+        <>
+          <div className="h-24 lg:hidden" aria-hidden="true" />
+          <div className="fixed inset-x-0 bottom-0 z-40 bg-crema p-3 shadow-[var(--sombra-arriba)] lg:hidden">
+            <Dialog.Trigger className="btn w-full">
+              Ver pedido (<span className="contador">{totalItems}</span>)
+            </Dialog.Trigger>
+          </div>
+        </>
+      )}
       <Dialog.Portal>
         <Dialog.Overlay className="hoja-fondo" />
         <Dialog.Content className="hoja" aria-describedby={undefined}>

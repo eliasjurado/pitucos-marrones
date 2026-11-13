@@ -40,7 +40,7 @@ export function Hero() {
         <div className="px-4 py-10 lg:px-0 lg:py-20">
           <p className="font-bold text-mostaza">Tienda oficial</p>
           <h1 id="t-hero" className="titulo mt-3 text-4xl lg:text-6xl">Muy marrones para ser pitucos, muy pitucos para ser marrones.</h1>
-          <p className="mt-4 max-w-md text-lg">Pitumerch ya está: merch oficial para resentidos sociales de confianza. Pides por WhatsApp.</p>
+          <p className="mt-4 max-w-md lead">Pitumerch ya está: merch oficial para resentidos sociales de confianza. Pides por WhatsApp.</p>
           <a href="#catalogo" className="btn mt-6">Ver el catálogo</a>
         </div>
       </div>
@@ -50,25 +50,25 @@ export function Hero() {
 
 export function DondeVernos() {
   return (
-    <section id="vernos" aria-labelledby="t-vernos" className="border-b-2 border-tinta bg-crema">
-      <div className="mx-auto max-w-6xl px-4 py-10 lg:py-14">
+    <section id="vernos" aria-labelledby="t-vernos" className="bg-crema">
+      <div className="mx-auto max-w-6xl px-4 pb-4 pt-8 lg:pb-8 lg:pt-12">
         <h2 id="t-vernos" className="titulo text-3xl lg:text-4xl">Dónde vernos</h2>
-        <p className="mt-2 max-w-md text-tinta-suave">Aquí nos encuentras. Elige tu vicio.</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="mt-1 max-w-md text-tinta-suave">Aquí nos encuentras. Elige tu vicio.</p>
+        <ul className="mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3">
           {PLATAFORMAS.map((p) => {
             const Icono = ICONOS[p.icono];
             return (
-              <li key={p.id}>
+              <li key={p.id} className="[&:last-child:nth-child(odd)]:col-span-2 lg:[&:last-child:nth-child(odd)]:col-span-1">
                 <a
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="plataforma flex min-h-16 items-center gap-3 rounded-xl border-2 border-tinta bg-papel px-4 py-3"
+                  className="plataforma panel flex min-h-14 items-center gap-3 px-3 py-2 sm:min-h-16 sm:px-4 sm:py-3"
                 >
-                  <Icono className="size-7 shrink-0 text-marca" />
+                  <Icono className="size-6 shrink-0 text-marca sm:size-7" />
                   <span className="min-w-0">
-                    <span className="block font-bold leading-tight">{p.nombre}<span className="sr-only"> (se abre en otra pestaña)</span></span>
-                    <span className="block text-sm text-tinta-suave">{p.bajada}</span>
+                    <span className="block text-sm font-bold leading-tight sm:text-base">{p.nombre}<span className="sr-only"> (se abre en otra pestaña)</span></span>
+                    <span className="hidden text-sm text-tinta-suave sm:block">{p.bajada}</span>
                   </span>
                 </a>
               </li>
@@ -88,12 +88,12 @@ const PASOS = [
 
 export function ComoPedir() {
   return (
-    <section aria-labelledby="t-como" className="border-y-2 border-tinta bg-mostaza text-tinta">
+    <section aria-labelledby="t-como" className="bg-mostaza text-tinta">
       <div className="mx-auto max-w-6xl px-4 py-12 lg:py-16">
         <h2 id="t-como" className="titulo text-3xl lg:text-4xl">Cómo pedir</h2>
         <ol className="mt-8 grid gap-4 lg:grid-cols-3">
           {PASOS.map(([t, d], i) => (
-            <li key={t} className="revelar rounded-xl border-2 border-tinta bg-crema p-5">
+            <li key={t} className="revelar rounded-xl bg-crema p-5 shadow-[var(--sombra)]">
               <p className="titulo text-5xl text-guinda" aria-hidden="true">{i + 1}</p>
               <h3 className="titulo mt-1 text-2xl">{t}</h3>
               <p className="mt-2">{d}</p>
@@ -115,7 +115,7 @@ export function Preguntas() {
   return (
     <section aria-labelledby="t-faq" className="mx-auto max-w-3xl px-4 py-12 lg:py-16">
       <h2 id="t-faq" className="titulo text-3xl lg:text-4xl">Preguntas frecuentes</h2>
-      <div className="mt-6 border-t-2 border-tinta">
+      <div className="mt-6">
         {PREGUNTAS.map(([q, a]) => (
           <details key={q} name="faq" className="faq border-b border-linea">
             <summary className="flex min-h-14 cursor-pointer items-center justify-between gap-4 py-3 font-bold">
@@ -142,7 +142,7 @@ export function Pie() {
           <ul className="flex flex-wrap gap-x-6">
             {PLATAFORMAS.map((p) => (
               <li key={p.id}>
-                <a href={p.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">
+                <a href={p.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 font-bold underline underline-offset-4">
                   {p.id === "pitumerch" ? "Pitumerch" : p.nombre}
                 </a>
               </li>

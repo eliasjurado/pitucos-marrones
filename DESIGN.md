@@ -7,6 +7,7 @@ Identidad tomada del logo y el merch de Pitucos Marrones (no la de Elías Jurado
 - **Tipografía:** Fredoka 700 para títulos, Figtree para texto. Campos a 16 px.
 - **Logo:** `public/fotos/logo-pitucos-marrones.webp` (920x320) a 56 px de alto en cabecera y pie, ambos sobre `#433938`. Iconos PWA: el logo centrado al 78 % del lienzo sobre `#433938`.
 - **Estructura:** hero → Dónde vernos (botones a plataformas, datos en `content/plataformas.ts`) → Tienda por línea (`LINEAS` en `content/catalogo.ts`) y grupo → Cómo pedir → FAQ → pie.
-- **Forma:** bordes de 2 px en negro, esquinas de 8 a 12 px, planos, sin sombras.
+- **Forma:** sin líneas marcadas. Borde de 1 px cálido (`--linea`, 12 % de opacidad) o ninguno; superficies `.panel` en papel con sombra suave; esquinas de 8 a 12 px. Seleccionado (talla, chip activo) = color de marca. Los botones primarios no llevan borde. Barra fija y hoja: sombra hacia arriba, sin borde.
 - **Mobile-first:** base 390 px, `min-width` para tablet y escritorio, targets ≥44 px. En móvil el pedido va en una hoja desde una barra fija; desde 1024 px es columna lateral fija.
-- **Motion:** CSS nativo, mejora progresiva, dentro de `prefers-reduced-motion`: revelado con `animation-timeline: view()`, `<details>` animado, `@starting-style`.
+- **Catálogo:** chips de categoría sticky con anclas; grilla de 2 columnas en móvil (tallas 2x2 hasta 520 px) y 3 desde md. La barra fija del pedido solo aparece con productos.
+- **Motion:** View Transitions al agregar y al abrir/cerrar la hoja (`lib/transicion.ts`, contador con `view-transition-name`); CSS nativo, mejora progresiva, dentro de `prefers-reduced-motion`: revelado con `animation-timeline: view()`, `<details>` animado, `@starting-style`.

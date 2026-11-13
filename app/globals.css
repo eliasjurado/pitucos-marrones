@@ -13,7 +13,9 @@
   --tinta: #17120f;
   --tinta-suave: #5a4636; /* 6.7:1 sobre crema */
   --marca: #433938;
-  --linea: rgb(23 18 15 / 0.16);
+  --linea: rgb(23 18 15 / 0.12);
+  --sombra: 0 1px 2px rgb(23 18 15 / 0.06), 0 10px 28px -14px rgb(67 57 56 / 0.28);
+  --sombra-arriba: 0 -1px 2px rgb(23 18 15 / 0.05), 0 -10px 28px -12px rgb(67 57 56 / 0.3);
   --borde-control: #7d6a5a;
   interpolate-size: allow-keywords;
 }
@@ -35,20 +37,31 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6.5rem;
 }
 body {
   background: var(--crema);
   color: var(--tinta);
   font-family: var(--font-texto);
   line-height: 1.5;
-  /* espacio para la barra fija del pedido en móvil */
-  padding-bottom: 5.5rem;
 }
-@media (min-width: 1024px) {
-  body {
-    padding-bottom: 0;
-  }
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5 {
+  text-wrap: balance;
+}
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+/* Superficie: sin líneas marcadas; 1 px cálido y sombra suave */
+.panel {
+  border: 1px solid var(--linea);
+  background: var(--papel);
+  box-shadow: var(--sombra);
+  border-radius: 0.75rem;
 }
 
 :focus-visible {
@@ -79,18 +92,17 @@ body {
   font-weight: 700;
   background: var(--mostaza);
   color: var(--tinta);
-  border: 2px solid var(--tinta);
-  transition: background-color 150ms, transform 150ms;
+  transition: background-color 150ms, transform 150ms, box-shadow 150ms;
 }
 .btn:hover {
   background: var(--mostaza-hondo);
+  box-shadow: var(--sombra);
 }
 .btn:active {
   transform: translateY(1px);
 }
 .btn:disabled {
-  background: #ddd2bd;
-  border-color: #8a7a68;
+  background: #e4dac6;
   color: #54463a;
   cursor: not-allowed;
 }
@@ -98,7 +110,7 @@ body {
 .btn-borde {
   background: transparent;
   color: var(--tinta);
-  border: 2px solid var(--tinta);
+  border: 1px solid var(--borde-control);
 }
 .btn-borde:hover {
   background: var(--tinta);
@@ -123,6 +135,7 @@ body {
 }
 .plataforma:hover {
   background: var(--mostaza);
+  border-color: transparent;
 }
 .plataforma:active {
   transform: translateY(1px);
@@ -133,7 +146,7 @@ body {
   min-width: 44px;
   min-height: 44px;
   padding: 0 0.75rem;
-  border: 2px solid var(--tinta);
+  border: 1px solid var(--borde-control);
   border-radius: 0.5rem;
   background: var(--papel);
   font-weight: 700;
@@ -143,6 +156,7 @@ body {
   background: var(--crema);
 }
 .talla[aria-pressed="true"] {
+  border-color: var(--chocolate);
   background: var(--chocolate);
   color: var(--crema);
 }
@@ -163,7 +177,7 @@ body {
   overflow-y: auto;
   border-radius: 1rem 1rem 0 0;
   background: var(--crema);
-  border-top: 2px solid var(--tinta);
+  box-shadow: var(--sombra-arriba);
   padding: 1.25rem 1rem 1.5rem;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -245,5 +259,49 @@ details.faq[open] .mas {
   }
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Chips de categoría */
+.chip {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 0.75rem;
+  border: 1px solid var(--linea);
+  border-radius: 9999px;
+  background: var(--papel);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color 150ms;
+}
+.chip:hover {
+  background: var(--mostaza);
+}
+.sin-barra {
+  scrollbar-width: none;
+}
+.sin-barra::-webkit-scrollbar {
+  display: none;
+}
+
+/* View Transitions: el contador del pedido anima al cambiar */
+.contador {
+  view-transition-name: contador;
+}
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(root) {
+    animation-duration: 180ms;
+  }
+  ::view-transition-group(contador) {
+    animation-duration: 260ms;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
   }
 }
