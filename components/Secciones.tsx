@@ -1,9 +1,9 @@
 import { ruta } from "@/lib/ruta";
 import Image from "next/image";
 import { PLATAFORMAS } from "@/content/plataformas";
-import { IconoBolsa, IconoCamara, IconoMas, IconoPlay, IconoVivo } from "./Iconos";
+import { IconoBolsa, IconoCamara, IconoMas, IconoNota, IconoPlay, IconoVivo } from "./Iconos";
 
-const ICONOS = { play: IconoPlay, vivo: IconoVivo, camara: IconoCamara, bolsa: IconoBolsa };
+const ICONOS = { play: IconoPlay, vivo: IconoVivo, camara: IconoCamara, bolsa: IconoBolsa, nota: IconoNota };
 
 const Logo = ({ className }: { className: string }) => (
   <Image src={ruta("/fotos/logo-pitucos-marrones.webp")} alt="Pitucos Marrones" width={920} height={320} className={className} />
@@ -54,7 +54,7 @@ export function DondeVernos() {
       <div className="mx-auto max-w-6xl px-4 py-10 lg:py-14">
         <h2 id="t-vernos" className="titulo text-3xl lg:text-4xl">Dónde vernos</h2>
         <p className="mt-2 max-w-md text-tinta-suave">Aquí nos encuentras. Elige tu vicio.</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {PLATAFORMAS.map((p) => {
             const Icono = ICONOS[p.icono];
             return (
