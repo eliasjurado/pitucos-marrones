@@ -1,16 +1,25 @@
 import { ruta } from "@/lib/ruta";
 import Image from "next/image";
-import { IconoMas } from "./Iconos";
-import { Logotipo } from "./Logotipo";
+import { PLATAFORMAS } from "@/content/plataformas";
+import { IconoBolsa, IconoCamara, IconoMas, IconoPlay, IconoVivo } from "./Iconos";
+
+const ICONOS = { play: IconoPlay, vivo: IconoVivo, camara: IconoCamara, bolsa: IconoBolsa };
+
+const Logo = ({ className }: { className: string }) => (
+  <Image src={ruta("/fotos/logo-pitucos-marrones.webp")} alt="Pitucos Marrones" width={920} height={320} className={className} />
+);
 
 export function Cabecera() {
   return (
     <header className="bg-chocolate text-crema">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <a href="#" aria-label="Pitumerch, inicio" className="inline-flex min-h-11 items-center">
-          <Logotipo className="text-[1.6rem]" />
+        <a href="#" aria-label="Pitucos Marrones, inicio" className="inline-flex items-center">
+          <Logo className="h-14 w-auto" />
         </a>
-        <a href="#catalogo" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Catálogo</a>
+        <nav aria-label="Secciones" className="flex gap-5">
+          <a href="#vernos" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Dónde vernos</a>
+          <a href="#catalogo" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Tienda</a>
+        </nav>
       </div>
     </header>
   );
@@ -29,11 +38,43 @@ export function Hero() {
           className="aspect-[4/3] w-full object-cover object-[50%_40%] lg:order-2 lg:aspect-[3/4] lg:max-w-[26rem] lg:rounded-xl"
         />
         <div className="px-4 py-10 lg:px-0 lg:py-20">
-          <p className="font-bold text-mostaza">Merch oficial del podcast</p>
-          <h1 id="t-hero" className="titulo mt-3 text-5xl lg:text-7xl">Merch para resentidos sociales de confianza</h1>
-          <p className="mt-4 max-w-md text-lg">Camisetas, polos, gorras y pines de Pitucos Marrones. Pides por WhatsApp.</p>
+          <p className="font-bold text-mostaza">Tienda oficial</p>
+          <h1 id="t-hero" className="titulo mt-3 text-4xl lg:text-6xl">Muy marrones para ser pitucos, muy pitucos para ser marrones.</h1>
+          <p className="mt-4 max-w-md text-lg">Pitumerch ya está: merch oficial para resentidos sociales de confianza. Pides por WhatsApp.</p>
           <a href="#catalogo" className="btn mt-6">Ver el catálogo</a>
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function DondeVernos() {
+  return (
+    <section id="vernos" aria-labelledby="t-vernos" className="border-b-2 border-tinta bg-crema">
+      <div className="mx-auto max-w-6xl px-4 py-10 lg:py-14">
+        <h2 id="t-vernos" className="titulo text-3xl lg:text-4xl">Dónde vernos</h2>
+        <p className="mt-2 max-w-md text-tinta-suave">Aquí nos encuentras. Elige tu vicio.</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {PLATAFORMAS.map((p) => {
+            const Icono = ICONOS[p.icono];
+            return (
+              <li key={p.id}>
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="plataforma flex min-h-16 items-center gap-3 rounded-xl border-2 border-tinta bg-papel px-4 py-3"
+                >
+                  <Icono className="size-7 shrink-0 text-marca" />
+                  <span className="min-w-0">
+                    <span className="block font-bold leading-tight">{p.nombre}<span className="sr-only"> (se abre en otra pestaña)</span></span>
+                    <span className="block text-sm text-tinta-suave">{p.bajada}</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
@@ -91,20 +132,21 @@ export function Preguntas() {
 
 export function Pie() {
   return (
-    <footer className="sobre-oscuro bg-negro py-10 text-crema">
+    <footer className="sobre-oscuro bg-chocolate py-10 text-crema">
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-4">
-            <Logotipo className="text-[1.6rem]" />
-            <p className="max-w-xs titulo text-lg leading-tight">Muy marrones para ser pitucos, muy pitucos para ser marrones.</p>
+            <Logo className="h-14 w-auto" />
+            <p className="max-w-xs titulo text-lg leading-tight">Merch oficial para resentidos sociales de confianza.</p>
           </div>
           <ul className="flex flex-wrap gap-x-6">
-            <li>
-              <a href="https://www.youtube.com/@Pitucos.Marrones" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">YouTube</a>
-            </li>
-            <li>
-              <a href="https://www.instagram.com/pitucosmarronesmerch/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Instagram</a>
-            </li>
+            {PLATAFORMAS.map((p) => (
+              <li key={p.id}>
+                <a href={p.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">
+                  {p.id === "pitumerch" ? "Pitumerch" : p.nombre}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
         <p className="text-sm text-crema/80">

@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
-/* Pitumerch · identidad tomada del merch de Pitucos Marrones (no la de Elías Jurado).
-   Chocolate de la visera · crema de las gorras · mostaza del ¡Nada! · negro · guinda de la camiseta. */
+/* Pitucos Marrones · identidad tomada de su logo y su merch (no la de Elías Jurado).
+   Marrón del logo #433938 · mostaza del logo #F7B74D · crema de las gorras · negro · guinda de la camiseta. */
 :root {
-  --chocolate: #3f2a1d;
+  --chocolate: #433938;
   --crema: #f3ead8;
   --papel: #fbf6eb;
-  --mostaza: #e2a622;
-  --mostaza-hondo: #c98f12;
+  --mostaza: #f7b74d;
+  --mostaza-hondo: #e0a02f;
   --negro: #17120f;
   --guinda: #7b2230;
   --tinta: #17120f;
   --tinta-suave: #5a4636; /* 6.7:1 sobre crema */
-  --marca: #3f2a1d;
+  --marca: #433938;
   --linea: rgb(23 18 15 / 0.16);
   --borde-control: #7d6a5a;
   interpolate-size: allow-keywords;
@@ -117,6 +117,17 @@ body {
   font-size: 1rem; /* 16px: iOS no hace zoom al enfocar */
 }
 
+/* Botones de plataformas */
+.plataforma {
+  transition: background-color 150ms, transform 150ms;
+}
+.plataforma:hover {
+  background: var(--mostaza);
+}
+.plataforma:active {
+  transform: translateY(1px);
+}
+
 /* Talla */
 .talla {
   min-width: 44px;
@@ -134,28 +145,6 @@ body {
 .talla[aria-pressed="true"] {
   background: var(--chocolate);
   color: var(--crema);
-}
-
-/* Logotipo PITU / MERCH: letra gruesa y redondeada, relleno crema y contorno oscuro */
-.logotipo {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: stretch;
-  font-family: var(--font-titulo);
-  font-weight: 700;
-  line-height: 0.82;
-  text-align: center;
-  color: var(--crema);
-  -webkit-text-stroke: 0.2em var(--negro);
-  paint-order: stroke fill;
-  stroke-linejoin: round;
-  letter-spacing: 0.01em;
-}
-.logotipo-pitu {
-  font-size: 1em;
-}
-.logotipo-merch {
-  font-size: 0.78em;
 }
 
 /* Hoja del pedido (móvil): sube desde abajo */

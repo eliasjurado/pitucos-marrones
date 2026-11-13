@@ -18,7 +18,7 @@ test("mensaje con talla, precios por confirmar, entrega y nombre", () => {
   assert.equal(
     m,
     [
-      "Hola Pitumerch, quiero hacer un pedido:",
+      "Hola Pitucos Marrones, quiero hacer un pedido:",
       "- 2 x Polo ¡Nada! (talla M)",
       "- 1 x Gorra trucker Pitucos Marrones",
       "Precios: por confirmar",

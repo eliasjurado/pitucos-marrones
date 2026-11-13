@@ -20,7 +20,7 @@ type Ctx = {
 };
 
 const PedidoCtx = createContext<Ctx | null>(null);
-const CLAVE = "pitumerch-pedido-v1";
+const CLAVE = "pitucos-pedido-v1";
 const FORM0: Form = { nombre: "", modalidad: "", lugar: "" };
 
 export function usePedido() {

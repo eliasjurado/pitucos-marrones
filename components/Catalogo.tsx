@@ -3,7 +3,7 @@
 import { ruta } from "@/lib/ruta";
 import Image from "next/image";
 import { useId, useState } from "react";
-import { GRUPOS, PRODUCTOS, type Producto } from "@/content/catalogo";
+import { GRUPOS, LINEAS, PRODUCTOS, type Producto } from "@/content/catalogo";
 import { usePedido } from "./PedidoProvider";
 import { PanelPedido } from "./PanelPedido";
 
@@ -36,7 +36,7 @@ function Tarjeta({ p }: { p: Producto }) {
         style={{ objectPosition: p.foto.pos }}
       />
       <div className="flex flex-1 flex-col p-4">
-        <h4 className="titulo text-xl leading-tight">{p.nombre}</h4>
+        <h5 className="titulo text-xl leading-tight">{p.nombre}</h5>
         <p className="mt-1 text-sm text-tinta-suave">Precio por WhatsApp</p>
 
         {p.tallas ? (
@@ -82,17 +82,29 @@ export function Catalogo() {
   return (
     <section id="catalogo" aria-labelledby="t-catalogo" className="mx-auto max-w-6xl px-4 py-12 lg:grid lg:grid-cols-[1fr_22rem] lg:gap-10 lg:py-16">
       <div>
-        <h2 id="t-catalogo" className="titulo text-4xl lg:text-5xl">Catálogo</h2>
+        <h2 id="t-catalogo" className="titulo text-4xl lg:text-5xl">Tienda</h2>
         <p className="mt-2 max-w-md text-tinta-suave">Elige, agrega y el pedido te sale ya escrito en WhatsApp.</p>
-        <div className="mt-8 space-y-12">
-          {GRUPOS.map((g) => (
-            <div key={g.id} className="revelar">
-              <h3 className="titulo mb-4 text-2xl text-marca">{g.nombre}</h3>
-              <ul className="grid gap-4 sm:grid-cols-2">
-                {PRODUCTOS.filter((p) => p.grupo === g.id).map((p) => (
-                  <Tarjeta key={p.id} p={p} />
-                ))}
-              </ul>
+        <div className="mt-8 space-y-16">
+          {LINEAS.map((l) => (
+            <div key={l.id} aria-labelledby={`t-${l.id}`}>
+              <h3 id={`t-${l.id}`} className="titulo text-3xl lg:text-4xl">{l.nombre}</h3>
+              <p className="mt-1 text-tinta-suave">{l.bajada}</p>
+              <div className="mt-6 space-y-12">
+                {GRUPOS.map((g) => {
+                  const productos = PRODUCTOS.filter((p) => p.linea === l.id && p.grupo === g.id);
+                  if (productos.length === 0) return null;
+                  return (
+                    <div key={g.id} className="revelar">
+                      <h4 className="titulo mb-4 text-2xl text-marca">{g.nombre}</h4>
+                      <ul className="grid gap-4 sm:grid-cols-2">
+                        {productos.map((p) => (
+                          <Tarjeta key={p.id} p={p} />
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           ))}
         </div>
