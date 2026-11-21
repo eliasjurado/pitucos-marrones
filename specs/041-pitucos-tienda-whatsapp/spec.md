@@ -3,7 +3,7 @@
 ## Qué y por qué
 Hugo Lezama (Cinesmero, "el Barbas") vende merch de Pitucos Marrones por mensaje directo de Instagram y tiene dos marcas de producto: **La Diabetes del Barbas** (repostería) y **La Cirrosis del Barbas** (cervezas artesanales). No tienen tienda propia ni un enlace de WhatsApp en sus perfiles. Una página que arma el pedido y lo manda listo por WhatsApp convierte la audiencia del stream (~96K en YouTube, ~61K en Instagram) en ventas sin comisiones ni pasarela.
 
-Demo para prospecto (regla de cuentas: va en la cuenta de Elías hasta que el cliente apruebe). Publicada en `eliasjurado.com/pitucos-marrones`, noindex.
+Demo para prospecto (regla de cuentas: va en la cuenta de Elías hasta que el cliente apruebe). Publicada en `andamialab.com/proposal/pitucos-marrones`, noindex.
 
 ## Alcance (v1: solo merch)
 1. Catálogo de Pitumerch en cuatro grupos: Camisetas (2), Polos (7), Gorras (2), Accesorios (pines). Fotos reales de su Instagram.

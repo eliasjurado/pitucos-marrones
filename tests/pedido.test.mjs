@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { armarMensaje, urlWhatsApp, validarPedido } from "../lib/pedido.mjs";
+import { accionEnvio, armarMensaje, urlWhatsApp, validarPedido } from "../lib/pedido.mjs";
 
 const base = { nombre: "Lucía", modalidad: "lima", lugar: "Miraflores" };
 const TALLAS = ["S", "M", "L", "XL"];
@@ -73,4 +73,16 @@ test("sin NUMERO la URL es wa.me/?text= y codifica tildes, ñ y saltos", () => {
 test("con número, la URL apunta a ese chat", () => {
   const url = urlWhatsApp("Hola", "51999999999");
   assert.equal(url, "https://wa.me/51999999999?text=Hola");
+});
+
+test("sin número no se abre WhatsApp: vista previa y sin URL", () => {
+  assert.deepEqual(accionEnvio("Hola"), { modo: "vista-previa", url: null });
+  assert.deepEqual(accionEnvio("Hola", null), { modo: "vista-previa", url: null });
+  assert.deepEqual(accionEnvio("Hola", "  "), { modo: "vista-previa", url: null });
+});
+
+test("con número se abre el chat de la tienda con el texto codificado", () => {
+  const a = accionEnvio("Hola\nñ", "51999999999");
+  assert.equal(a.modo, "abrir");
+  assert.equal(a.url, "https://wa.me/51999999999?text=Hola%0A%C3%B1");
 });

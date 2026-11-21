@@ -125,7 +125,7 @@ export function Catalogo() {
           ))}
         </div>
       </div>
-      <aside id="pedido" aria-label="Tu pedido" className="panel mt-10 hidden self-start p-5 lg:sticky lg:top-6 lg:block">
+      <aside id="pedido" aria-label="Tu pedido" className="panel mt-10 hidden self-start p-5 lg:sticky lg:top-6 lg:block lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto">
         <h2 className="titulo mb-4 text-2xl">
           Tu pedido{totalItems > 0 && <> (<span className="contador">{totalItems}</span>)</>}
         </h2>

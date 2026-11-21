@@ -8,17 +8,17 @@ const fredoka = Fredoka({ subsets: ["latin"], variable: "--font-fredoka", displa
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-figtree", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Pitucos Marrones · Tienda oficial",
-  description: "Tienda oficial de Pitucos Marrones: Pitumerch con camisetas, polos, gorras y pines. Arma tu pedido y envíalo por WhatsApp.",
-  metadataBase: new URL("https://eliasjurado.com"),
+  title: "Pitucos Marrones · Tienda",
+  description: "Tienda de Pitucos Marrones: Pitumerch con camisetas, polos, gorras y pines. Arma tu pedido y envíalo por WhatsApp.",
+  metadataBase: new URL("https://andamialab.com"),
   openGraph: {
     type: "website",
     locale: "es_PE",
     siteName: "Pitucos Marrones",
-    title: "Pitucos Marrones · Tienda oficial",
-    description: "Muy marrones para ser pitucos, muy pitucos para ser marrones. Pide el merch oficial por WhatsApp.",
+    title: "Pitucos Marrones · Tienda",
+    description: "Muy marrones para ser pitucos, muy pitucos para ser marrones. Pide el merch por WhatsApp.",
     url: ruta("/"),
-    images: [{ url: ruta("/og.jpg"), width: 1200, height: 630, alt: "Pitucos Marrones: tienda oficial, con la camiseta guinda" }],
+    images: [{ url: ruta("/og.jpg"), width: 1200, height: 630, alt: "Pitucos Marrones: tienda, con la camiseta guinda" }],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: false, follow: false },

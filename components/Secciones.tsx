@@ -38,9 +38,9 @@ export function Hero() {
           className="aspect-[4/3] w-full object-cover object-[50%_40%] lg:order-2 lg:aspect-[3/4] lg:max-w-[26rem] lg:rounded-xl"
         />
         <div className="px-4 py-10 lg:px-0 lg:py-20">
-          <p className="font-bold text-mostaza">Tienda oficial</p>
+          <p className="font-bold text-mostaza">Pitumerch</p>
           <h1 id="t-hero" className="titulo mt-3 text-4xl lg:text-6xl">Muy marrones para ser pitucos, muy pitucos para ser marrones.</h1>
-          <p className="mt-4 max-w-md lead">Pitumerch ya está: merch oficial para resentidos sociales de confianza. Pides por WhatsApp.</p>
+          <p className="mt-4 max-w-md lead">Pitumerch ya está: merch para resentidos sociales de confianza. Pides por WhatsApp.</p>
           <a href="#catalogo" className="btn mt-6">Ver el catálogo</a>
         </div>
       </div>
@@ -137,7 +137,7 @@ export function Pie() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-4">
             <Logo className="h-14 w-auto" />
-            <p className="max-w-xs titulo text-lg leading-tight">Merch oficial para resentidos sociales de confianza.</p>
+            <p className="max-w-xs titulo text-lg leading-tight">Merch para resentidos sociales de confianza.</p>
           </div>
           <ul className="flex flex-wrap gap-x-6">
             {PLATAFORMAS.map((p) => (
@@ -150,9 +150,9 @@ export function Pie() {
           </ul>
         </div>
         <p className="text-sm text-crema/80">
-          Hecho con <span role="img" aria-label="amor">❤️</span> por{" "}
-          <a href="https://eliasjurado.com" className="text-crema underline underline-offset-2 hover:no-underline">
-            Elías Jurado
+          Sitio por{" "}
+          <a href="https://andamialab.com" className="inline-flex min-h-11 items-center text-crema underline underline-offset-2 hover:no-underline">
+            AndamIA Lab
           </a>
         </p>
       </div>

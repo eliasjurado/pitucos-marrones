@@ -1,4 +1,4 @@
-# PRODUCT — Pitucos Marrones (tienda oficial)
+# PRODUCT — Pitucos Marrones (tienda)
 
 Portada y tienda por WhatsApp de Pitucos Marrones (podcast peruano), para pitucosmarrones.com. Pitumerch (merch) es la primera línea; la estructura admite más (La Diabetes y La Cirrosis del Barbas). Demo de Elías Jurado para el prospecto (línea discreta en el pie); `noindex` hasta el OK de la marca.
 

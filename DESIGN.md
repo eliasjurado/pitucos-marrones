@@ -1,4 +1,4 @@
-# DESIGN — Pitucos Marrones (tienda oficial)
+# DESIGN — Pitucos Marrones (tienda)
 
 Identidad tomada del logo y el merch de Pitucos Marrones (no la de Elías Jurado).
 

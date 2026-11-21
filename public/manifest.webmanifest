@@ -1,7 +1,7 @@
 {
   "name": "Pitucos Marrones",
   "short_name": "Pitucos Marrones",
-  "description": "Tienda oficial. Arma tu pedido y envíalo por WhatsApp.",
+  "description": "Pitumerch. Arma tu pedido y envíalo por WhatsApp.",
   "lang": "es-PE",
   "start_url": "./",
   "scope": "./",

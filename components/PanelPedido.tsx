@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import { armarMensaje, urlWhatsApp } from "@/lib/pedido.mjs";
+import { accionEnvio, armarMensaje } from "@/lib/pedido.mjs";
 import { usePedido } from "./PedidoProvider";
 import { IconoWhatsApp } from "./Iconos";
 
@@ -14,6 +14,7 @@ export function PanelPedido() {
   const { pedido, form, setForm, agregar, totalItems, enviado, setEnviado, vaciar } = usePedido();
   const uid = useId();
   const [intento, setIntento] = useState(false);
+  const [envio, setEnvio] = useState<{ modo: "abrir" | "vista-previa"; url: string | null; mensaje: string } | null>(null);
   const nombreRef = useRef<HTMLInputElement>(null);
   const modoRef = useRef<HTMLInputElement>(null);
   const lugarRef = useRef<HTMLInputElement>(null);
@@ -33,7 +34,10 @@ export function PanelPedido() {
     if (errores.lugar) return lugarRef.current?.focus();
     const msg = armarMensaje(pedido);
     if (!msg) return;
-    window.open(urlWhatsApp(msg), "_blank", "noopener,noreferrer");
+    const accion = accionEnvio(msg);
+    // Sin número de la tienda no se abre WhatsApp: se muestra cómo le llegaría el pedido.
+    if (accion.modo === "abrir") window.open(accion.url, "_blank", "noopener,noreferrer");
+    setEnvio({ ...accion, mensaje: msg });
     setEnviado(true);
   };
 
@@ -131,13 +135,34 @@ export function PanelPedido() {
           <IconoWhatsApp className="size-5" />
           Enviar pedido por WhatsApp
         </button>
-        {enviado ? (
-          <div role="status" className="space-y-2">
-            <p className="font-bold">Listo. Revisa WhatsApp y aprieta enviar.</p>
+        {enviado && envio ? (
+          <div role="status" className="space-y-3">
+            {envio.modo === "vista-previa" ? (
+              <>
+                <p className="font-bold">Así le llega el pedido a Pitucos Marrones por WhatsApp</p>
+                <div className="rounded-xl bg-[#e7dcc6] p-3">
+                  <div className="ml-auto max-w-[92%] rounded-xl rounded-tr-sm bg-[#dcf3c9] px-3 py-2 text-[0.95rem] leading-snug text-tinta shadow-[0_1px_1px_rgb(23_18_15/0.12)]">
+                    <p className="whitespace-pre-line break-words">{envio.mensaje}</p>
+                    <p className="mt-1 text-right text-xs text-tinta-suave">ahora</p>
+                  </div>
+                </div>
+                <p className="text-sm text-tinta-suave">Esta es una demo: el número de WhatsApp de la tienda lo conectan ellos.</p>
+              </>
+            ) : (
+              <>
+                <p className="font-bold">Se abrió WhatsApp con tu pedido escrito. Aprieta enviar allá.</p>
+                <p className="text-sm">
+                  ¿No se abrió?{" "}
+                  <a href={envio.url ?? "#"} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-bold underline underline-offset-2">
+                    Abrir WhatsApp con el pedido
+                  </a>
+                </p>
+              </>
+            )}
             <button type="button" className="btn btn-borde w-full" onClick={vaciar}>Vaciar pedido</button>
           </div>
         ) : (
-          <p className="text-sm text-tinta-suave">Se abre WhatsApp con tu pedido escrito. Tú aprietas enviar.</p>
+          <p className="text-sm text-tinta-suave">Armamos tu pedido ya redactado, listo para WhatsApp.</p>
         )}
       </div>
     </form>

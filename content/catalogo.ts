@@ -5,7 +5,7 @@ export type Foto = { src: string; w: number; h: number; pos?: string };
 export const TALLAS = ["S", "M", "L", "XL"] as const;
 
 export const LINEAS = [
-  { id: "pitumerch", nombre: "Pitumerch", bajada: "Merch oficial del podcast" },
+  { id: "pitumerch", nombre: "Pitumerch", bajada: "Merch del podcast" },
 ] as const;
 
 export type LineaId = (typeof LINEAS)[number]["id"];

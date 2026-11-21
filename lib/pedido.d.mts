@@ -21,3 +21,5 @@ export type Pedido = {
 export function validarPedido(pedido: Pedido): string | null;
 export function armarMensaje(pedido: Pedido): string | null;
 export function urlWhatsApp(mensaje: string, numero?: string | null): string;
+export type AccionEnvio = { modo: "abrir"; url: string } | { modo: "vista-previa"; url: null };
+export function accionEnvio(mensaje: string, numero?: string | null): AccionEnvio;
