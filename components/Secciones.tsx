@@ -9,16 +9,16 @@ const Logo = ({ className }: { className: string }) => (
   <Image src={ruta("/fotos/logo-pitucos-marrones.webp")} alt="Pitucos Marrones" width={920} height={320} className={className} />
 );
 
-export function Cabecera() {
+export function Cabecera({ base = "" }: { base?: string }) {
   return (
     <header className="bg-chocolate text-crema">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <a href="#" aria-label="Pitucos Marrones, inicio" className="inline-flex items-center">
+        <a href={`${base}#`} aria-label="Pitucos Marrones, inicio" className="inline-flex items-center">
           <Logo className="h-14 w-auto" />
         </a>
         <nav aria-label="Secciones" className="flex gap-5">
-          <a href="#vernos" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Dónde vernos</a>
-          <a href="#catalogo" className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Tienda</a>
+          <a href={`${base}#vernos`} className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Dónde vernos</a>
+          <a href={`${base}#catalogo`} className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Tienda</a>
         </nav>
       </div>
     </header>
@@ -150,6 +150,10 @@ export function Pie() {
           </ul>
         </div>
         <p className="text-sm text-crema/80">
+          <a href={ruta("/privacidad/")} className="inline-flex min-h-11 items-center text-crema underline underline-offset-2 hover:no-underline">
+            Privacidad
+          </a>
+          {" · "}
           Sitio por{" "}
           <a href="https://andamialab.com" className="inline-flex min-h-11 items-center text-crema underline underline-offset-2 hover:no-underline">
             AndamIA Lab

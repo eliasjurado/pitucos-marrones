@@ -4,6 +4,7 @@ import { useId, useRef, useState } from "react";
 import { accionEnvio, armarMensaje } from "@/lib/pedido.mjs";
 import { usePedido } from "./PedidoProvider";
 import { IconoWhatsApp } from "./Iconos";
+import { ruta } from "@/lib/ruta";
 
 const MODOS = [
   { id: "lima", texto: "Delivery en Lima" },
@@ -131,6 +132,10 @@ export function PanelPedido() {
       )}
 
       <div className="space-y-3">
+        <p className="text-sm text-tinta-suave">
+          Tu nombre y tu distrito o ciudad solo sirven para armar el mensaje de WhatsApp; esta página no los guarda en ningún servidor.{" "}
+          <a href={ruta("/privacidad/")} className="inline-flex min-h-11 items-center font-bold underline underline-offset-2">Cómo cuidamos tus datos</a>
+        </p>
         <button type="submit" className="btn w-full" disabled={totalItems === 0}>
           <IconoWhatsApp className="size-5" />
           Enviar pedido por WhatsApp
