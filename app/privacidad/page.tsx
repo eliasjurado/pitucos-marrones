@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PanelFavoritos } from "@/components/PanelFavoritos";
 import { FavoritosProvider } from "@/components/FavoritosProvider";
 import { PedidoProvider } from "@/components/PedidoProvider";
 import { Cabecera, Pie } from "@/components/Secciones";
@@ -36,6 +37,7 @@ export default function Page() {
         <a href={ruta("/")} className="btn btn-borde mt-6 inline-flex">Volver a la tienda</a>
       </main>
       <Pie />
+      <PanelFavoritos enTienda={false} />
     </FavoritosProvider>
     </PedidoProvider>
   );

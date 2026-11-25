@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { productoPorId } from "@/content/catalogo";
 import { CLAVE_FAVORITOS, alternarFavorito, leerFavoritos, serializarFavoritos } from "@/lib/favoritos.mjs";
 
@@ -10,6 +10,12 @@ type Ctx = {
   esFavorito: (id: string) => boolean;
   alternar: (id: string) => void;
   quitar: (id: string) => void;
+  /** Panel de favoritos: un solo diálogo, varios accesos (cabecera, barra fija, columna del pedido). */
+  abierto: boolean;
+  abrir: () => void;
+  cerrar: () => void;
+  /** Elemento que abrió el panel, para devolverle el foco al cerrar. */
+  origen: React.RefObject<HTMLElement | null>;
 };
 
 const FavoritosCtx = createContext<Ctx | null>(null);
@@ -23,6 +29,13 @@ export function useFavoritos() {
 export function FavoritosProvider({ children }: { children: React.ReactNode }) {
   const [ids, setIds] = useState<string[]>([]);
   const [cargado, setCargado] = useState(false);
+  const [abierto, setAbierto] = useState(false);
+  const origen = useRef<HTMLElement | null>(null);
+  const abrir = useCallback(() => {
+    origen.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setAbierto(true);
+  }, []);
+  const cerrar = useCallback(() => setAbierto(false), []);
 
   // Lee lo guardado solo en el cliente, después de hidratar (el sitio es export estático).
   useEffect(() => {
@@ -43,8 +56,8 @@ export function FavoritosProvider({ children }: { children: React.ReactNode }) {
   const quitar = useCallback((id: string) => setIds((p) => p.filter((x) => x !== id)), []);
 
   const value = useMemo<Ctx>(
-    () => ({ ids, esFavorito: (id) => ids.includes(id), alternar, quitar }),
-    [ids, alternar, quitar],
+    () => ({ ids, esFavorito: (id) => ids.includes(id), alternar, quitar, abierto, abrir, cerrar, origen }),
+    [ids, alternar, quitar, abierto, abrir, cerrar],
   );
   return <FavoritosCtx.Provider value={value}>{children}</FavoritosCtx.Provider>;
 }

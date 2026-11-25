@@ -12,7 +12,7 @@ const Logo = ({ className }: { className: string }) => (
 
 export function Cabecera({ base = "" }: { base?: string }) {
   return (
-    <header className="bg-chocolate text-crema">
+    <header className="sobre-oscuro bg-chocolate text-crema">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <a href={`${base}#`} aria-label="Pitucos Marrones, inicio" className="inline-flex items-center">
           <Logo className="h-11 w-auto min-[420px]:h-14" />
