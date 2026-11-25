@@ -1,8 +1,8 @@
 {
-  // Worker propio con ruta en andamialab.com/proposals/pitucos-marrones/* (la ruta tiene prioridad sobre el dominio propio del Worker andamialab-web;
+  // Worker propio con ruta en andamialab.com/proposals/pitucos-marrones* (la ruta tiene prioridad sobre el dominio propio del Worker andamialab-web;
   // el resto del dominio sigue yendo a ese Worker). Se arma con `npm run preparar-worker` y se publica con `npm run publicar`.
   "name": "proposal-pitucos-marrones",
   "compatibility_date": "2026-11-01",
-  "routes": [{ "pattern": "andamialab.com/proposals/pitucos-marrones/*", "zone_name": "andamialab.com" }],
+  "routes": [{ "pattern": "andamialab.com/proposals/pitucos-marrones*", "zone_name": "andamialab.com" }],
   "assets": { "directory": "./.worker", "html_handling": "auto-trailing-slash" }
 }
