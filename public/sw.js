@@ -1,6 +1,8 @@
 // Service worker de Pitucos Marrones. Sube VERSION en cada release.
+// El activate borra solo sus propios cachés (prefijo), nunca los de otros sitios del mismo origen.
 // Solo cachea estáticos de una lista permitida. El HTML y todo lo demás va directo a la red.
-const VERSION = "pitucos-v3";
+const PREFIJO = "pitucos-";
+const VERSION = PREFIJO + "v4";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const PERMITIDOS = ["/_next/static/", "/fotos/", "/icons/"].map((p) => BASE + p);
 const PRIVADOS = ["/admin", "/auth", "/api", "/login"].map((p) => BASE + p);
@@ -11,7 +13,7 @@ self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches
       .keys()
-      .then((ks) => Promise.all(ks.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
+      .then((ks) => Promise.all(ks.filter((k) => k.startsWith(PREFIJO) && k !== VERSION).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
