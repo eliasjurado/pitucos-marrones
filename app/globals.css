@@ -305,3 +305,61 @@ details.faq[open] .mas {
     animation: none;
   }
 }
+
+/* Favoritos: corazón sobre la foto (44 px), relleno = marcado (no depende solo del color) */
+.corazon {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(251 246 235 / 0.92);
+  color: var(--tinta);
+}
+.corazon:hover {
+  background: var(--papel);
+}
+.corazon[aria-pressed="true"] {
+  color: var(--guinda);
+}
+.corazon[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .corazon svg {
+    transition: scale 160ms cubic-bezier(0.22, 1, 0.36, 1), fill 160ms;
+  }
+  .corazon:active svg {
+    scale: 0.8;
+  }
+}
+
+/* Panel de favoritos: hoja desde abajo en móvil, columna lateral desde 1024 px */
+@media (min-width: 1024px) {
+  .hoja-lateral {
+    inset-block: 0;
+    inset-inline: auto 0;
+    width: 26rem;
+    max-height: none;
+    border-radius: 1rem 0 0 1rem;
+    box-shadow: -10px 0 28px -12px rgb(67 57 56 / 0.3);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hoja-lateral[data-state="open"] {
+      animation: entrar-lado 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hoja-lateral[data-state="closed"] {
+      animation: salir-lado 180ms ease-in forwards;
+    }
+  }
+}
+@keyframes entrar-lado {
+  from { transform: translateX(100%); }
+}
+@keyframes salir-lado {
+  to { transform: translateX(100%); }
+}

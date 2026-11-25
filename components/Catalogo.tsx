@@ -3,13 +3,18 @@
 import { ruta } from "@/lib/ruta";
 import { conTransicion } from "@/lib/transicion";
 import Image from "next/image";
+import { Heart } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { GRUPOS, LINEAS, PRODUCTOS, type Producto } from "@/content/catalogo";
 import { usePedido } from "./PedidoProvider";
+import { useFavoritos } from "./FavoritosProvider";
 import { PanelPedido } from "./PanelPedido";
+import { AccesoFavoritos } from "./PanelFavoritos";
 
 function Tarjeta({ p }: { p: Producto }) {
   const { agregar } = usePedido();
+  const { esFavorito, alternar } = useFavoritos();
+  const fav = esFavorito(p.id);
   const uid = useId();
   const [talla, setTalla] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +35,7 @@ function Tarjeta({ p }: { p: Producto }) {
   };
 
   return (
-    <li className="tarjeta-nueva panel flex flex-col overflow-hidden">
+    <li className="tarjeta-nueva panel relative flex flex-col overflow-hidden">
       <Image
         src={ruta(p.foto.src)}
         alt={p.alt}
@@ -39,6 +44,15 @@ function Tarjeta({ p }: { p: Producto }) {
         className="aspect-square w-full object-cover"
         style={{ objectPosition: p.foto.pos }}
       />
+      <button
+        type="button"
+        className="corazon"
+        aria-pressed={fav}
+        aria-label={fav ? `Quitar ${p.nombre} de favoritos` : `Agregar ${p.nombre} a favoritos`}
+        onClick={() => alternar(p.id)}
+      >
+        <Heart className="size-6" aria-hidden="true" />
+      </button>
       <div className="flex flex-1 flex-col p-3">
         <h5 className="titulo text-base leading-tight sm:text-lg">{p.nombre}</h5>
         <p className="mt-1 text-sm text-tinta-suave">Precio por WhatsApp</p>
@@ -71,7 +85,7 @@ function Tarjeta({ p }: { p: Producto }) {
         <p id={`${uid}-e`} role="alert" className="mt-2 text-sm font-bold text-guinda empty:hidden">{error}</p>
 
         <div className="mt-auto pt-3">
-          <button type="button" className="btn w-full px-2" onClick={poner} aria-label={`Agregar ${p.nombre}`}>
+          <button type="button" className="btn w-full px-2" onClick={poner} aria-label={`${agregado || "Agregar"}: ${p.nombre}`}>
             {agregado || "Agregar"}
           </button>
         </div>
@@ -87,7 +101,7 @@ export function Catalogo() {
   return (
     <section id="catalogo" aria-labelledby="t-catalogo" className="mx-auto max-w-6xl px-4 pb-12 pt-10 lg:grid lg:grid-cols-[1fr_22rem] lg:gap-10 lg:pb-16 lg:pt-14">
       <div>
-        <h2 id="t-catalogo" className="titulo text-4xl lg:text-5xl">Tienda</h2>
+        <h2 id="t-catalogo" tabIndex={-1} className="titulo text-4xl outline-none lg:text-5xl">Tienda</h2>
         <p className="mt-2 max-w-md text-tinta-suave">Elige, agrega y el pedido te sale ya escrito en WhatsApp.</p>
 
         <nav aria-label="Categorías" className="sticky top-0 z-30 -mx-4 mt-4 bg-crema px-4 py-2">
@@ -129,6 +143,7 @@ export function Catalogo() {
         <h2 className="titulo mb-4 text-2xl">
           Tu pedido{totalItems > 0 && <> (<span className="contador">{totalItems}</span>)</>}
         </h2>
+        <AccesoFavoritos variante="texto" className="mb-4" />
         <PanelPedido />
       </aside>
     </section>

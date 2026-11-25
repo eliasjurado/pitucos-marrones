@@ -1,5 +1,6 @@
 import { ruta } from "@/lib/ruta";
 import Image from "next/image";
+import { BotonFavoritos } from "./PanelFavoritos";
 import { PLATAFORMAS } from "@/content/plataformas";
 import { IconoBolsa, IconoCamara, IconoMas, IconoNota, IconoPlay, IconoVivo } from "./Iconos";
 
@@ -11,14 +12,15 @@ const Logo = ({ className }: { className: string }) => (
 
 export function Cabecera({ base = "" }: { base?: string }) {
   return (
-    <header className="bg-chocolate text-crema">
+    <header className="sobre-oscuro bg-chocolate text-crema">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <a href={`${base}#`} aria-label="Pitucos Marrones, inicio" className="inline-flex items-center">
-          <Logo className="h-14 w-auto" />
+          <Logo className="h-11 w-auto min-[420px]:h-14" />
         </a>
-        <nav aria-label="Secciones" className="flex gap-5">
-          <a href={`${base}#vernos`} className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Dónde vernos</a>
+        <nav aria-label="Secciones" className="flex items-center gap-2 text-[0.9375rem] min-[420px]:gap-5 min-[420px]:text-base">
+          <a href={`${base}#vernos`} className="inline-flex min-h-11 items-center whitespace-nowrap font-bold underline underline-offset-4">Dónde vernos</a>
           <a href={`${base}#catalogo`} className="inline-flex min-h-11 items-center font-bold underline underline-offset-4">Tienda</a>
+          <BotonFavoritos />
         </nav>
       </div>
     </header>

@@ -1,6 +1,6 @@
 // Service worker de Pitucos Marrones. Sube VERSION en cada release.
 // Solo cachea estáticos de una lista permitida. El HTML y todo lo demás va directo a la red.
-const VERSION = "pitucos-v2";
+const VERSION = "pitucos-v3";
 const BASE = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 const PERMITIDOS = ["/_next/static/", "/fotos/", "/icons/"].map((p) => BASE + p);
 const PRIVADOS = ["/admin", "/auth", "/api", "/login"].map((p) => BASE + p);
