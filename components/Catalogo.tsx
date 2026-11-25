@@ -3,13 +3,17 @@
 import { ruta } from "@/lib/ruta";
 import { conTransicion } from "@/lib/transicion";
 import Image from "next/image";
+import { Heart } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { GRUPOS, LINEAS, PRODUCTOS, type Producto } from "@/content/catalogo";
 import { usePedido } from "./PedidoProvider";
+import { useFavoritos } from "./FavoritosProvider";
 import { PanelPedido } from "./PanelPedido";
 
 function Tarjeta({ p }: { p: Producto }) {
   const { agregar } = usePedido();
+  const { esFavorito, alternar } = useFavoritos();
+  const fav = esFavorito(p.id);
   const uid = useId();
   const [talla, setTalla] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +34,7 @@ function Tarjeta({ p }: { p: Producto }) {
   };
 
   return (
-    <li className="tarjeta-nueva panel flex flex-col overflow-hidden">
+    <li className="tarjeta-nueva panel relative flex flex-col overflow-hidden">
       <Image
         src={ruta(p.foto.src)}
         alt={p.alt}
@@ -39,6 +43,15 @@ function Tarjeta({ p }: { p: Producto }) {
         className="aspect-square w-full object-cover"
         style={{ objectPosition: p.foto.pos }}
       />
+      <button
+        type="button"
+        className="corazon"
+        aria-pressed={fav}
+        aria-label={fav ? `Quitar ${p.nombre} de favoritos` : `Agregar ${p.nombre} a favoritos`}
+        onClick={() => alternar(p.id)}
+      >
+        <Heart className="size-6" aria-hidden="true" />
+      </button>
       <div className="flex flex-1 flex-col p-3">
         <h5 className="titulo text-base leading-tight sm:text-lg">{p.nombre}</h5>
         <p className="mt-1 text-sm text-tinta-suave">Precio por WhatsApp</p>
