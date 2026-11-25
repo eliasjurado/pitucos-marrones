@@ -113,7 +113,7 @@ export function AccesoFavoritos({ variante, className = "" }: { variante: "icono
   const n = useProductosFavoritos().length;
   if (variante === "texto") {
     return (
-      <button type="button" onClick={abrir} className={`btn btn-borde w-full ${className}`}>
+      <button type="button" data-acceso-favoritos onClick={(e) => abrir(e.currentTarget)} className={`btn btn-borde w-full ${className}`}>
         <Heart className="size-5" aria-hidden="true" />
         <span>Tus favoritos{n > 0 && ` (${n})`}</span>
       </button>
@@ -122,7 +122,8 @@ export function AccesoFavoritos({ variante, className = "" }: { variante: "icono
   return (
     <button
       type="button"
-      onClick={abrir}
+      data-acceso-favoritos
+      onClick={(e) => abrir(e.currentTarget)}
       className={`relative inline-flex size-11 shrink-0 items-center justify-center rounded-lg ${className}`}
       aria-label={n > 0 ? `Favoritos, ${n} ${n === 1 ? "producto" : "productos"}` : "Favoritos, aún vacío"}
     >
@@ -141,18 +142,30 @@ export const BotonFavoritos = () => <AccesoFavoritos variante="icono" />;
 
 /** El diálogo, una sola vez por página. `enTienda`: la página tiene pedido a la vista. */
 export function PanelFavoritos({ enTienda }: { enTienda: boolean }) {
-  const { abierto, cerrar, origen } = useFavoritos();
+  const { abierto, cerrar, origen, irATienda } = useFavoritos();
   const productos = useProductosFavoritos();
   const n = productos.length;
 
-  const irATienda = (e: React.MouseEvent) => {
+  const alIrATienda = (e: React.MouseEvent) => {
     if (!enTienda) return; // en otra página, el enlace navega solo
     e.preventDefault();
+    irATienda.current = true; // el desplazamiento y el foco los hace onCloseAutoFocus, cuando el panel ya cerró
     cerrar();
-    setTimeout(() => {
+  };
+
+  const alCerrarFoco = (e: Event) => {
+    e.preventDefault();
+    if (irATienda.current) {
+      irATienda.current = false;
       document.getElementById("catalogo")?.scrollIntoView({ block: "start" });
       document.getElementById("t-catalogo")?.focus({ preventScroll: true });
-    }, 60);
+      return;
+    }
+    // Vuelve al acceso que abrió el panel; si ya no está (la barra cambió de variante), al acceso de favoritos visible.
+    const destino = origen.current?.isConnected
+      ? origen.current
+      : [...document.querySelectorAll<HTMLElement>("[data-acceso-favoritos]")].find((el) => el.offsetParent !== null);
+    destino?.focus();
   };
 
   return (
@@ -162,13 +175,7 @@ export function PanelFavoritos({ enTienda }: { enTienda: boolean }) {
         <Dialog.Content
           className="hoja hoja-lateral"
           aria-describedby={undefined}
-          onCloseAutoFocus={(e) => {
-            // Devuelve el foco al acceso que abrió el panel (hay varios).
-            if (origen.current?.isConnected) {
-              e.preventDefault();
-              origen.current.focus();
-            }
-          }}
+          onCloseAutoFocus={alCerrarFoco}
         >
           <div className="mb-2 flex items-center justify-between">
             <Dialog.Title className="titulo text-2xl">Tus favoritos</Dialog.Title>
@@ -179,7 +186,7 @@ export function PanelFavoritos({ enTienda }: { enTienda: boolean }) {
           {n === 0 ? (
             <div className="py-6">
               <p className="text-tinta-suave">Aún no guardas nada. Toca el corazón de un producto de la tienda y aparece aquí.</p>
-              <a href={enTienda ? "#catalogo" : IR_TIENDA} onClick={irATienda} className="btn mt-5 w-full">
+              <a href={enTienda ? "#catalogo" : IR_TIENDA} onClick={alIrATienda} className="btn mt-5 w-full">
                 Ir a la tienda
               </a>
             </div>

@@ -12,7 +12,9 @@
 - [x] T09 P2 foco: `sobre-oscuro` en el `<header>` (anillo mostaza medido `rgb(247,183,77)`).
 - [x] T10 WCAG 2.5.3: sin `aria-label` que pise el texto en "Agregar al pedido"; en el catálogo el nombre accesible ahora empieza con el texto visible.
 - [x] T11 Aviso "En tu pedido: n, talla X" (deriva del pedido real).
-- [x] T12 Estado vacío con "Ir a la tienda" (foco a "Tienda").
+- [x] T12 Estado vacío con "Ir a la tienda". (Corregido en la 2.ª revisión: la 1.ª versión usaba un temporizador y `onCloseAutoFocus` deshacía el desplazamiento al abrir desde la cabecera; no estaba realmente probado desde ese acceso.) Ahora `irATienda` (ref) se activa antes de cerrar y `onCloseAutoFocus` lleva a `#catalogo` y enfoca `#t-catalogo`.
+- [x] T13 Origen del foco = `e.currentTarget` del acceso (Safari/iOS no enfoca al tocar); si el origen se desconecta (la barra cambia de variante) el foco vuelve al acceso de favoritos visible (`data-acceso-favoritos`).
+- Probado tras cerrar (2 s, con `.focus()` antes del clic): desde cabecera y barra a 390 y desde cabecera y aside a 1440, `scrollY` 975 (390) y 836 (1440), foco en `#t-catalogo`; origen desconectado: foco en "Favoritos, 1 producto".
 - Sin cambios de lógica pura: pruebas siguen 17/17. `VERSION` del SW ya era v3 respecto a `main`.
 
 ## Probado

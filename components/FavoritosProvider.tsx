@@ -12,10 +12,12 @@ type Ctx = {
   quitar: (id: string) => void;
   /** Panel de favoritos: un solo diálogo, varios accesos (cabecera, barra fija, columna del pedido). */
   abierto: boolean;
-  abrir: () => void;
+  abrir: (desde?: HTMLElement | null) => void;
   cerrar: () => void;
   /** Elemento que abrió el panel, para devolverle el foco al cerrar. */
   origen: React.RefObject<HTMLElement | null>;
+  /** "Ir a la tienda" lo activa antes de cerrar: al terminar de cerrar, el foco va al catálogo y no al acceso. */
+  irATienda: React.RefObject<boolean>;
 };
 
 const FavoritosCtx = createContext<Ctx | null>(null);
@@ -31,8 +33,11 @@ export function FavoritosProvider({ children }: { children: React.ReactNode }) {
   const [cargado, setCargado] = useState(false);
   const [abierto, setAbierto] = useState(false);
   const origen = useRef<HTMLElement | null>(null);
-  const abrir = useCallback(() => {
-    origen.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  const irATienda = useRef(false);
+  // El origen llega como `e.currentTarget`: en Safari/iOS tocar un botón no lo enfoca, así que `activeElement` no sirve.
+  const abrir = useCallback((desde?: HTMLElement | null) => {
+    origen.current = desde ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
+    irATienda.current = false;
     setAbierto(true);
   }, []);
   const cerrar = useCallback(() => setAbierto(false), []);
@@ -56,7 +61,7 @@ export function FavoritosProvider({ children }: { children: React.ReactNode }) {
   const quitar = useCallback((id: string) => setIds((p) => p.filter((x) => x !== id)), []);
 
   const value = useMemo<Ctx>(
-    () => ({ ids, esFavorito: (id) => ids.includes(id), alternar, quitar, abierto, abrir, cerrar, origen }),
+    () => ({ ids, esFavorito: (id) => ids.includes(id), alternar, quitar, abierto, abrir, cerrar, origen, irATienda }),
     [ids, alternar, quitar, abierto, abrir, cerrar],
   );
   return <FavoritosCtx.Provider value={value}>{children}</FavoritosCtx.Provider>;
